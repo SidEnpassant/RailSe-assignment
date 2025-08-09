@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'app/bindings/initial_binding.dart';
-import 'app/routes/app_pages.dart';
-import 'app/routes/app_routes.dart';
-import 'core/constants/app_colors.dart';
+import 'package:provider/provider.dart';
+import 'package:railseassignment/providers/task_provider.dart';
+import 'package:railseassignment/screens/task_list_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,26 +10,14 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Task Management App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: AppColors.backgroundColor,
-        appBarTheme: AppBarTheme(
-          backgroundColor: AppColors.backgroundColor,
-          elevation: 0,
-          iconTheme: IconThemeData(color: AppColors.textPrimary),
-          titleTextStyle: TextStyle(
-            color: AppColors.textPrimary,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+    return ChangeNotifierProvider(
+      create: (context) => TaskProvider(),
+      child: MaterialApp(
+        title: 'Task Manager',
+        theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Roboto'),
+        home: TaskListScreen(),
+        debugShowCheckedModeBanner: false,
       ),
-      initialBinding: InitialBinding(),
-      initialRoute: AppRoutes.TASK_LIST,
-      getPages: AppPages.routes,
     );
   }
 }
