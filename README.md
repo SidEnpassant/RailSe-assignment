@@ -1,38 +1,86 @@
-# railseassignment
+# Flutter Task Manager
 
-A professional Flutter application for task management built with GetX state management, featuring interactive task cards with status-based UI changes and date editing capabilities.
+A comprehensive task management application built with Flutter, featuring dynamic status tracking, deadline management, and an intuitive user interface designed for optimal productivity.
 
-## 📱 Features
+## 📱 Overview
+
+This Flutter application provides a streamlined task management system with visual status indicators, interactive controls, and real-time updates. The interface is designed to clearly distinguish between different task states while providing seamless user interactions for task progression and deadline management.
+
+## ✨ Features
 
 ### Core Functionality
-- **Dynamic Task Status Management**: Visual changes based on task status (Not Started, Started, Completed, Overdue)
-- **Interactive Task Actions**: 
-  - Start Task button for "Not Started" tasks
-  - Mark as Complete button for "Started" tasks
-  - Date picker for editing deadlines on active tasks
-- **Smart UI Elements**: Edit icon only appears for "Not Started" tasks
-- **Real-time Updates**: Automatic UI refresh when task status changes
+- **Dynamic Task Status Management**: Track tasks through three distinct states (Not Started, Started, Completed)
+- **Visual Status Indicators**: Color-coded borders and status badges for instant task state recognition
+- **Interactive Task Progression**: Single-tap task advancement through workflow stages
+- **Deadline Management**: Comprehensive date editing with automatic time calculations
+- **Priority Marking**: High-priority task identification with visual badges
 
-### Technical Features
-- **GetX State Management**: Reactive programming with efficient state updates
-- **Clean Architecture**: Modular structure with proper separation of concerns
-- **Professional UI**: Matches provided design with proper spacing, colors, and typography
-- **Error Handling**: Comprehensive error handling with user-friendly messages
-- **Date Management**: Proper date formatting and overdue detection
-- **Responsive Design**: Works across different screen sizes
+### User Interface Highlights
+- **Status-Based Visual Design**: Completed tasks display with fade effect and strike-through text
+- **Color-Coded Categories**: 
+  - Orders (Blue)
+  - Entities (Purple) 
+  - Enquiries (Orange)
+- **Smart Border System**:
+  - Green solid border: Completed tasks
+  - Blue solid border: Started tasks
+  - Grey dotted border: Not started tasks
+- **Contextual Controls**: Task-specific action buttons and edit capabilities
+
+## 🛠️ Technical Architecture
+
+### State Management
+- **Provider Pattern**: Centralized state management using the Provider package
+- **Real-time Updates**: Instant UI refresh on state changes
+- **Immutable Data Flow**: Predictable state transitions
+
+### Project Structure
+```
+lib/
+├── main.dart                 # Application entry point
+├── models/
+│   └── task.dart            # Task data model and enums
+├── providers/
+│   └── task_provider.dart   # State management logic
+├── screens/
+│   └── task_list_screen.dart # Main task list interface
+└── widgets/
+    └── task_card.dart       # Individual task card component
+```
+
+## 🎯 Core Components
+
+### Task Model
+- **TaskStatus Enum**: `notStarted`, `started`, `completed`
+- **TaskType Enum**: `order`, `entity`, `enquiry`
+- **Dynamic Properties**: Status-dependent text formatting and date calculations
+
+### Interactive Elements
+1. **Start Task Button**: Converts "Not Started" tasks to "Started" status
+2. **Mark as Complete**: Transitions "Started" tasks to "Completed" status
+3. **Date Pickers**: 
+   - Due date editing for not started tasks
+   - Deadline modification for started tasks
+   - Start date editing with validation
+
+### Visual Feedback System
+- **Opacity Modulation**: Completed tasks rendered at 60% opacity
+- **Border Indicators**: Left-side colored borders for status identification
+- **Typography States**: Strike-through text for completed items
+- **Color Coordination**: Consistent color scheme across status and category types
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Flutter SDK (>=3.0.0)
-- Dart (>=3.0.0)
+- Flutter SDK (^3.0.0)
+- Dart SDK (^3.0.0)
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd task_management_app
+   git clone [repository-url]
+   cd flutter-task-manager
    ```
 
 2. **Install dependencies**
@@ -45,144 +93,91 @@ A professional Flutter application for task management built with GetX state man
    flutter run
    ```
 
-## 📁 Project Structure
-
-```
-lib/
-├── app/
-│   ├── bindings/           # Dependency injection bindings
-│   ├── controllers/        # GetX controllers for state management
-│   ├── data/
-│   │   ├── models/        # Data models
-│   │   └── services/      # Business logic and data services
-│   ├── modules/           # Feature modules
-│   ├── routes/            # App routing configuration
-│   └── widgets/           # Reusable UI components
-├── core/
-│   ├── constants/         # App constants (colors, strings, styles)
-│   ├── enums/            # Enumerations
-│   └── utils/            # Utility functions and extensions
-└── main.dart             # App entry point
-```
-
-## 🎨 UI Components
-
-### Task Card Features
-- **Status-based Color Coding**:
-  - Blue theme for "Not Started" tasks
-  - Orange/Yellow theme for "Started" tasks  
-  - Green theme for "Completed" tasks
-  - Red theme for "Overdue" tasks
-
-- **Interactive Elements**:
-  - Clickable task titles with underline
-  - Status badges with appropriate colors
-  - Action buttons that change based on status
-  - Date picker integration for deadline editing
-  - Edit icon for date modification (Not Started tasks only)
-
-- **Priority Indicators**:
-  - High priority badge for important tasks
-  - Visual distinction in task cards
-
-## 🔧 Key Technologies
-
-- **Flutter**: Cross-platform UI framework
-- **GetX**: State management and dependency injection
-- **Dart**: Programming language
-- **Material Design**: UI components and theming
-
-## 📦 Dependencies
-
+### Dependencies
 ```yaml
 dependencies:
   flutter:
     sdk: flutter
-  get: ^4.6.6          # State management
-  intl: ^0.19.0        # Date formatting
-  cupertino_icons: ^1.0.6
+  provider: ^6.0.5
+  cupertino_icons: ^1.0.2
 ```
 
-## 🏗️ Architecture
+## 🎮 Usage Guide
 
-### GetX Pattern
-- **Controllers**: Handle business logic and state management
-- **Bindings**: Manage dependency injection
-- **Views**: UI components that react to state changes
+### Task Interactions
 
-### Clean Architecture Principles
-- **Models**: Data structures and business entities
-- **Services**: Data access and business logic
-- **Controllers**: State management and user interactions
-- **Views**: UI presentation layer
+#### Starting a Task
+1. Locate a task with "Due Today" or "Due in X days" status
+2. Tap the "Start Task" button (blue text with play icon)
+3. Task automatically transitions to "Started" status with overdue tracking
 
-## 🎯 Task Status Flow
+#### Completing a Task
+1. Find a task with "Overdue" status (red background)
+2. Tap the green checkmark beside "Mark as complete"
+3. Task moves to "Completed" status with completion timestamp
 
-```
-Not Started → Started → Completed
-     ↓
-  Overdue (if past due date)
-```
+#### Date Management
+- **Not Started Tasks**: 
+  - Edit due date using the pen icon next to the due status
+  - Edit start date using the pen icon next to "Start: [date]"
+- **Started Tasks**: 
+  - Modify deadline using the pen icon next to "Overdue" status
+  - View start date (non-editable once started)
 
-### Status-based Actions
-- **Not Started**: Shows "Start Task" button + edit icon for date
-- **Started**: Shows "Mark as complete" button
-- **Completed**: Shows check icon, read-only
-- **Overdue**: Shows "Start Task" button (similar to Not Started)
+## 🎨 Design System
 
-## 🔄 State Management
+### Color Palette
+- **Primary Blue**: `#1976D2` (Orders, active elements)
+- **Purple**: `#7B1FA2` (Entity tasks)
+- **Orange**: `#F57C00` (Enquiry tasks, due status)
+- **Red**: `#D32F2F` (Overdue status, high priority)
+- **Green**: `#388E3C` (Completed status, completion actions)
+- **Grey Variants**: `#666666`, `#999999` (Secondary text, inactive elements)
 
-The app uses GetX reactive programming:
+### Typography
+- **Task Titles**: 16px, Semi-bold, Category-colored
+- **Subtitles**: 14px, Regular, Grey
+- **Assignee Names**: 13px, Regular, Dark grey
+- **Status Text**: 11px, Medium, Status-colored
+- **Action Text**: 12px, Medium, Action-colored
 
-```dart
-// Controller
-final RxList<TaskModel> tasks = <TaskModel>[].obs;
+## 🔧 Customization
 
-// View
-Obx(() => ListView.builder(
-  itemCount: controller.tasks.length,
-  // ...
-))
-```
+### Adding New Task Types
+1. Extend the `TaskType` enum in `models/task.dart`
+2. Add color mapping in `_getTitleColor()` method
+3. Update task creation in `TaskProvider`
 
-## 📅 Date Management
+### Modifying Status Flow
+1. Adjust `TaskStatus` enum values
+2. Update status-dependent methods in the Task model
+3. Modify UI components in `TaskCard` widget
 
-- **Overdue Detection**: Automatic detection of overdue tasks
-- **Date Picker**: Material Design date picker for deadline editing
-- **Formatting**: Consistent date formatting throughout the app
-- **Time Calculations**: Smart display of due dates and overdue periods
+### Styling Adjustments
+- Colors can be modified in the respective `_getColor()` methods
+- Border styles are controlled in `_getLeftBorderColor()` and `DottedBorderPainter`
+- Typography adjustments in individual `TextStyle` declarations
 
-## 🎨 Theming
+## 📱 Platform Support
 
-Consistent color scheme based on task status:
-- Primary colors for each status
-- Background colors for status badges
-- Text colors for readability
-- Button colors that match the context
+- **iOS**: Full compatibility with iOS design guidelines
+- **Android**: Material Design implementation
+- **Web**: Responsive design for web deployment
+- **Desktop**: Adaptable layout for desktop environments
 
-## 🚀 Future Enhancements
+## 🧪 Testing Recommendations
 
-- [ ] Task creation and editing
-- [ ] User authentication
-- [ ] Data persistence (local database)
-- [ ] Push notifications for due tasks
-- [ ] Task filtering and search
-- [ ] Team collaboration features
-- [ ] API integration
-- [ ] Dark mode support
+### Manual Testing Checklist
+- [ ] Task status progression (Not Started → Started → Completed)
+- [ ] Date picker functionality for all task states
+- [ ] Visual state changes (borders, opacity, text formatting)
+- [ ] High priority badge display
+- [ ] Responsive layout on different screen sizes
 
-## 🐛 Known Issues
-
-None currently identified. Please report issues through the repository.
-
-## 📄 License
-
-This project is created for internship assignment purposes.
-
-## 👥 Contributing
-
-This is an internship project. For any questions or suggestions, please contact the development team.
-
+### Automated Testing
+- Unit tests for TaskProvider state management
+- Widget tests for TaskCard interactions
+- Integration tests for complete user workflows
 ---
 
-**Built with ❤️ using Flutter and GetX**
+**Built with ❤️ using Flutter & Dart**
