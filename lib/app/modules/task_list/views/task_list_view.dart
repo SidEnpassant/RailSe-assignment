@@ -13,12 +13,12 @@ class TaskListView extends GetView<TaskController> {
       appBar: AppBar(
         title: Text('Tasks'),
         centerTitle: false,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: controller.loadTasks,
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(Icons.refresh),
+        //     onPressed: controller.loadTasks,
+        //   ),
+        // ],
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
